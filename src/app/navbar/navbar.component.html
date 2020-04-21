@@ -7,20 +7,32 @@
   
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
+
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="my/orders">My Orders</a>
         </li>
        
         <li ngbDropdown class="nav-item dropdown">
-          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a ngbDropdownToggle *ngIf="(auth.user$ | async) as user ; else guestUser " class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.displayName}}</a>
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+            
             <a class="dropdown-item" routerLink="shopping-cart">Shopping Cart</a>
-            <a class="dropdown-item" routerLink="admin/products">Products</a>
-            <a class="dropdown-item" routerLink="admin/orders">Orders</a>
-            <a class="dropdown-item" href="#">Logout</a>
+
+            <ng-container *ngIf="adminStat.isAdmin">
+              <a class="dropdown-item" routerLink="admin/products">Manage Products</a>
+              <a class="dropdown-item" routerLink="admin/orders">Manage Orders</a>
+            </ng-container>
+              
+            
+           
+            <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
         </li>
       </ul>
-     
+      
+      <ng-template #guestUser>
+        <a routerLink="login" class="btn btn-outline-success">Login</a>
+      </ng-template>
+      
     </div>
   </nav>
