@@ -1,3 +1,4 @@
+import { IsAdminService } from './is-admin.service';
 
 import { AppUser } from './models/app-user';
 import { UserService } from './user.service';
@@ -11,23 +12,15 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 export class AdminAuthGuard implements CanActivate{
 
  
-  constructor(private auth:AuthService,private userServices:UserService) { }
-
-  public isAdmin:boolean=false
+  constructor(private admin:IsAdminService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
-      this.auth.user$.subscribe(user => {
-        this.userServices.getUser(user.uid)
-          .subscribe((user:AppUser) => this.isAdmin=user.isAdmin)
-      })
-     
-    return this.isAdmin;
+    return this.admin.isAdmin
+
   }
 
-  getAdminStatus():boolean{
-    return this.isAdmin;
-  }
+  
 
 
 }

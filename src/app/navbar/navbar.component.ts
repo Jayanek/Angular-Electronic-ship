@@ -1,8 +1,7 @@
 import { IsAdminService } from './../is-admin.service';
-import { UserService } from './../user.service';
 import { AuthService } from './../auth.service';
-import { Component, OnInit } from '@angular/core';
-import { AdminAuthGuard } from '../admin-auth-guard.service';
+import { Component} from '@angular/core';
+
 
 @Component({
   selector: 'navbar',
@@ -10,10 +9,9 @@ import { AdminAuthGuard } from '../admin-auth-guard.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent{
-
-  constructor(public auth:AuthService,public adminStat:AdminAuthGuard) {}
-
   
+  constructor(public auth:AuthService,public admin:IsAdminService) {}
+
   logout(){
     this.auth.userLogout()
   }

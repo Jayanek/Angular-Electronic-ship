@@ -9,12 +9,14 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
 })
 export class IsAdminService {
 
+  isAdmin:boolean
   
-  constructor(private adminStatus:AdminAuthGuard ) { }
-
-  isAdmin():boolean{
-
-   return this.adminStatus.getAdminStatus()
-
+  constructor(public auth:AuthService,private userServices:UserService) { 
+    this.auth.user$.subscribe(user => {
+      this.userServices.getUser(user.uid)
+        .subscribe((user:AppUser) => this.isAdmin=user.isAdmin)
+    })
   }
+
+ 
 }

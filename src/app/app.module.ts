@@ -59,7 +59,7 @@ import { AuthGuard } from './auth-guard.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
-  providers: [AuthService,AuthGuard,AdminAuthGuard,UserService,IsAdminService],
+  providers: [AuthService,AuthGuard,AdminAuthGuard,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
