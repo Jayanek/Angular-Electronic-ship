@@ -24,6 +24,9 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './category.service';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,8 @@ import { AuthGuard } from './auth-guard.service';
     LoginComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,9 @@ import { AuthGuard } from './auth-guard.service';
       {path:'checkout',component:CheckoutComponent,canActivate:[AuthGuard]},
       {path:'shopping-cart',component:ShoppingCartComponent,canActivate:[AuthGuard]},
       {path:'order/success',component:OrderSuccessComponent,canActivate:[AuthGuard]},
+      
+      {path:'admin/products/new',component:ProductFormComponent,canActivate:[AuthGuard,AdminAuthGuard]},
+      {path:'admin/products/:id',component:ProductFormComponent,canActivate:[AuthGuard,AdminAuthGuard]},
       {path:'admin/products',component:AdminProductsComponent,canActivate:[AuthGuard,AdminAuthGuard]},
       {path:'admin/orders',component:AdminOrdersComponent,canActivate:[AuthGuard,AdminAuthGuard]},
 
@@ -58,8 +65,9 @@ import { AuthGuard } from './auth-guard.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    FormsModule
   ],
-  providers: [AuthService,AuthGuard,AdminAuthGuard,UserService],
+  providers: [AuthService,AuthGuard,AdminAuthGuard,UserService,CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

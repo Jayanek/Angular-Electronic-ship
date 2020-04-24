@@ -14,13 +14,6 @@ export class AdminAuthGuard implements CanActivate{
  
   constructor(private admin:IsAdminService) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-
-    return this.admin.isAdmin
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){ return this.admin.isAdmin }
 
   }
-
-  
-
-
-}
