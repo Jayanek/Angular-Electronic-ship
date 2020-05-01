@@ -1,0 +1,16 @@
+
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action"
+        [class.active]="!category"
+         routerLink="/"
+        >All categories</a>
+    
+        <a class="list-group-item list-group-item-action"
+        *ngFor="let category of categories$|async"
+           [class.active]="category == category.key"
+           routerLink="/"
+           [queryParams]="{category:category.key}"
+        >{{category.data.name}}</a>
+    
+    </div>
+

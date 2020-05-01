@@ -1,1 +1,32 @@
-<p>products works!</p>
+
+<div class="row">
+
+    <div class="col-9">
+        
+        <div class="row">
+            <ng-container *ngFor="let product of filteredProducts;let i = index">
+                <div class="col">
+                    <product-cart [product]="product" [showAction]="true"></product-cart>
+                </div>
+                <div *ngIf="(i+1) % 2 == 0" class="w-100">
+                    <br><br>
+                </div>
+            </ng-container>   
+        </div>
+
+    </div>
+
+    <div class="col">
+            <div class="sticky-top">
+                <product-filter [category]="category"></product-filter>
+            </div>
+            
+        
+       
+    </div>
+
+</div>
+
+
+
+

@@ -12,12 +12,15 @@ import {take} from 'rxjs/operators'
 export class ProductFormComponent implements OnInit {
   id
   categories$
-  product:any={}
+  showAction:boolean=false
+  product:any={
+    data:{}
+  }
   constructor(private categoryService:CategoryService,private productService:ProductService,private route:Router,private router:ActivatedRoute) {
      this.categories$=this.categoryService.get()
      this.id = this.router.snapshot.paramMap.get('id')
-     if(this.id) this.product=this.productService.getSingle(this.id).snapshotChanges()
-     .pipe(take(1)).subscribe(product => this.product=product.payload.val())
+     if(this.id) this.productService.getSingle(this.id).snapshotChanges()
+     .pipe(take(1)).subscribe(product => this.product.data=product.payload.val())
    }
 
    save(product:Product){
@@ -27,6 +30,9 @@ export class ProductFormComponent implements OnInit {
       
       this.route.navigate(['/admin/products'])
    }
+
+
+
 
   ngOnInit(): void {
   }

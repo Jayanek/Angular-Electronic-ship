@@ -8,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProductsComponent implements OnInit {
 
-  products$
+  products=[]
+  filteredProductd:any=[]
 
   constructor(private productService:ProductService) {
-    this.products$=this.productService.getAll()
+    this.productService.getAll().subscribe(products => this.products=this.filteredProductd=products)
    }
+
+  search(query:string){
+    
+    this.filteredProductd = (query) ? 
+                this.products.filter(p => p.data.title.toLowerCase().includes(query.toLowerCase())):
+                this.products
+  }
 
   ngOnInit(): void {
   }

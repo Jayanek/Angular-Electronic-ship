@@ -14,7 +14,7 @@
 
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input #title="ngModel" [(ngModel)]="product.title" id="title" name="title" type="text" class="form-control" required>
+                    <input #title="ngModel" [(ngModel)]="product.data.title" id="title" name="title" type="text" class="form-control" required>
                     <div class="alert alert-danger mt-2" *ngIf="title.invalid && title.touched">
                         <div *ngIf="title.errors.required">Title field is required!</div>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">$</span>
                         </div>
-                          <input #price="ngModel" [(ngModel)]="product.price" id="price" name="price" type="number" class="form-control" required>
+                          <input #price="ngModel" [(ngModel)]="product.data.price" id="price" name="price" type="number" class="form-control" required>
                     </div>
                     <div class="alert alert-danger mt-2" *ngIf="price.invalid && price.touched">
                         <div *ngIf="price.errors.required">Price field is required!</div>
@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <select #category="ngModel" [(ngModel)]="product.category" id="category" name="category" class="form-control" required>
+                    <select #category="ngModel" [(ngModel)]="product.data.category" id="category" name="category" class="form-control" required>
                         <option selected disabled>Select a category</option>
                         <option *ngFor="let category of categories$|async" [value]="category.key">{{category.data.name}}</option>
                     </select>
@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                     <label for="imageUrl">Image Url</label>
-                    <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" id="imageUrl" name="imageUrl" type="text" class="form-control" required>
+                    <input #imageUrl="ngModel" [(ngModel)]="product.data.imageUrl" id="imageUrl" name="imageUrl" type="text" class="form-control" required>
                     <div class="alert alert-danger mt-2" *ngIf="imageUrl.invalid && imageUrl.touched">
                         <div *ngIf="imageUrl.errors.required">Image Url field is required!</div>
                     </div>
@@ -59,13 +59,9 @@
             </form>
         </div>
         <div class="col-md-6">
-            <div class="card float-right" style="width: 25rem;">
-                <img class="card-img-top" [src]="product.imageUrl" >
-                <div class="card-body">
-                  <h5 class="card-title">{{product.title}}</h5>
-                  <p class="card-text">{{product.price | currency:"USD":true}}</p>
-                </div>
-              </div>
+                <div class="float-right">
+                <product-cart [product]="product" [showAction]="showAction"></product-cart>
+            </div>
         </div>
     </div>
 </div>

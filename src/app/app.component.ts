@@ -2,6 +2,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from './auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -19,17 +20,24 @@ export class AppComponent {
     {
 
     this.auth.user$.subscribe((user) => {
-      if(user){
-        let returnUrl = localStorage.getItem('returnUrl')
-        this.route.navigateByUrl(returnUrl)
 
+      if(!user) return
+
+      let returnUrl = localStorage.getItem('returnUrl')
+
+      if(!returnUrl) return
+
+      localStorage.removeItem('returnUrl')
+      this.route.navigateByUrl(returnUrl)
+
+      
         this.db.object('/users/'+user.uid).update({
           name:user.displayName,
           email:user.email
         })
 
       }
-    })
+    )
 
   }
 }
