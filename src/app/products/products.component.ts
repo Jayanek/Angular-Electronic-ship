@@ -1,19 +1,27 @@
 import { ProductService } from './../product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+
+import { Subscription, Observable } from 'rxjs';
+import { ShoppingCartService } from '../shopping-cart.service';
+import { ShoppingCart } from '../models/shopping-cart';
+
+
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit{
 
   products:any=[]
   filteredProducts:any=[]
   category
-  constructor(private productService:ProductService,private router:ActivatedRoute) {
+  shoppingCart$:Observable<ShoppingCart>
+
+  constructor(private productService:ProductService,private router:ActivatedRoute,private cartService:ShoppingCartService) {
      this.products=this.productService.getAll()
      .pipe(switchMap(products =>{
       this.products=products
@@ -23,14 +31,13 @@ export class ProductsComponent implements OnInit {
 
       this.filteredProducts = (this.category) ? this.products.filter(p => p.data.category === this.category) : this.products
 
-    })
-      
-   
-     
-     
-    }
+    }) }
 
-  ngOnInit(): void {
-  }
+    async ngOnInit(){
+      this.shoppingCart$=await this.cartService.getCart()
+      ////this.subscription= this.shoppingCart$.subscribe(items => this.qty=items.getQuantity(this.product.key))
+     }
+
+    
 
 }

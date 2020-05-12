@@ -2,9 +2,20 @@
 <img style="height: 18rem" class="card-img-top" [src]="product.data.imageUrl" *ngIf="product.data.imageUrl" [alt]="product.data.title">
     <div class="card-body">
         <h5 class="card-title">{{product.data.title}}</h5>
-        <p class="card-text">{{product.data.price | currency:"USD":true}}</p>
-        <button class="btn btn-secondary btn-block" *ngIf="showAction">Add to Cart</button>
+        <p class="card-text">{{product.data.price | currency:"USD"}}</p>
+        
+        
+       <div class="cart-footer" *ngIf="showAction && shoppingCart$|async as cart" >
+
+        <button *ngIf="cart.getQuantity(product.key) === 0 ;else hasQunatity" class="btn btn-secondary btn-block" (click)="addTocart()">Add to Cart</button>
+    
+        <ng-template #hasQunatity>
+            <product-quantity [product]="product" [quantity]="cart.getQuantity(product.key)"></product-quantity>
+        </ng-template>
+        </div>
        
+    
+
     </div>
 </div>
 
