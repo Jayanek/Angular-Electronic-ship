@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit{
   products:any=[]
   filteredProducts:any=[]
   category
-  shoppingCart$:Observable<ShoppingCart>
+  shoppingCart$
 
   constructor(private productService:ProductService,private router:ActivatedRoute,private cartService:ShoppingCartService) {
      this.products=this.productService.getAll()
@@ -35,7 +35,6 @@ export class ProductsComponent implements OnInit{
 
     async ngOnInit(){
       this.shoppingCart$=await this.cartService.getCart()
-      ////this.subscription= this.shoppingCart$.subscribe(items => this.qty=items.getQuantity(this.product.key))
      }
 
     

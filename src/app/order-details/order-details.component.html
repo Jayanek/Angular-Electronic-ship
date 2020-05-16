@@ -1,0 +1,9 @@
+<div *ngIf="cartItems">
+    <div><h5 class="text-center">Order Details</h5></div>
+    <div class="list-group-flush">
+        <div class="list-group-item" *ngFor="let item of cartItems.items">
+            {{item.quantity}} X {{item.product.title}} <div class="float-right font-weight-bold">{{item.itemTotalPrice |currency:"USD"}}</div> 
+        </div>
+        <div class="list-group-item font-weight-bold">Total Price<div class="float-right">{{cartItems.getItemsTotal |currency:"USD"}}</div> </div>
+    </div>
+</div> 

@@ -1,1 +1,10 @@
-<p>checkout works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+          <shipping-form [cart-items]="cartItems$|async"></shipping-form>
+        </div>
+        <div class="col-md-6">
+          <order-details [cart-items]="cartItems$|async"></order-details>
+        </div>
+    </div>
+</div>

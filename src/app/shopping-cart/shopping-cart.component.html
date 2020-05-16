@@ -1,6 +1,6 @@
 <div class="container" *ngIf="cart$|async as cart">
     <h2>Shopping Cart</h2>
-    <h6>Contain {{cart.getTotal}} items</h6>
+    <h6>Contain {{cart.getTotal}} items<button class="btn btn-light btn-sm ml-2" (click)="clearTheCart()">Clear the Shopping Cart</button></h6>
 
     <table class="table">
         <thead>
@@ -31,5 +31,5 @@
             </tr>
         </tfoot>
     </table>
-    <button class="btn btn-danger" (click)="clearTheCart()">Clear the Cart</button>
+    <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
 </div>
